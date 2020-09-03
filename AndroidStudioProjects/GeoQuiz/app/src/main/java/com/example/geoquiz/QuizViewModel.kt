@@ -23,6 +23,17 @@ class QuizViewModel : ViewModel(){
 
     val currentQuestionAnswered : Boolean get() = questionBank[currentIndex].questionAnswered
 
+    fun markCorrect(){
+        questionBank[currentIndex].correctAnswer = true
+    }
+
+    fun getScore() : Int{
+        var count = 0
+        for(question in questionBank){
+            if(question.correctAnswer) count +=1
+        }
+        return count
+    }
 
     fun markCurrentQuestionAnswered(){
         questionBank[currentIndex].questionAnswered = true

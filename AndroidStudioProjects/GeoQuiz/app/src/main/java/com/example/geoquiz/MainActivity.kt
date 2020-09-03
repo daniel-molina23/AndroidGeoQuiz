@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 private const val TAG = "MainActivity"
+private const val KEY_INDEX = "index"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var trueButton : Button
@@ -18,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nextButton : Button
     private lateinit var prevButton : Button
     private lateinit var questionTextView : TextView
-    private var scoreCount : Int = 0
 
 
     //stash the QuizViewModel instance associated with the activity
@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
         setContentView(R.layout.activity_main)
+
+        //if KEY_INDEX (DNE), or if the object is null, return 0
+        val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
+        quizViewModel.currentIndex = currentIndex //keep track of index after stop/destroy
+
 
         trueButton = findViewById(R.id.true_button)
         falseButton = findViewById(R.id.false_button)
@@ -97,6 +102,13 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "onPause() called")
     }
 
+    override fun onSaveInstanceState(savedInstanceState: Bundle){
+        super.onSaveInstanceState(savedInstanceState)
+        Log.i(TAG, "onSaveInstanceState")
+        //save current index to not loose track when stopped
+        savedInstanceState.putInt(KEY_INDEX, quizViewModel.currentIndex)
+    }
+
     override fun onStop(){
         super.onStop()
         Log.d(TAG, "onStop() called")
@@ -131,7 +143,7 @@ class MainActivity : AppCompatActivity() {
             prevButton.isEnabled = false
 
             //output final score
-            var score = scoreCount.toFloat()/quizViewModel.questionSize() * 100
+            var score = quizViewModel.getScore().toFloat()/quizViewModel.questionSize() * 100
             var message = "Final Score: " + "%.2f ".format(score) + "%"
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
@@ -141,7 +153,7 @@ class MainActivity : AppCompatActivity() {
         val correctAnswer = quizViewModel.currentQuestionAnswer
 
         val messageResId = if(userAnswer == correctAnswer){
-            scoreCount += 1
+            quizViewModel.markCorrect() //mark that question's answer as correct!
             R.string.correct_toast
         } else{
             R.string.incorrect_toast
