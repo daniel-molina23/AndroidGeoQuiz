@@ -7,6 +7,7 @@ private const val TAG = "QuizViewModel"
 class QuizViewModel : ViewModel(){
 
     var currentIndex = 0 //made not private anymore so it can be accessed by external classes
+    var isCheater = false
 
     //calling the Question constructor to make list of objects
     private val questionBank = listOf(
@@ -44,7 +45,7 @@ class QuizViewModel : ViewModel(){
     }
 
     fun boolFinishedQuiz() : Boolean{
-        var completedQ: Boolean = true
+        var completedQ = true
         for(question in questionBank){
             if(!question.questionAnswered){
                 //if question not answered
