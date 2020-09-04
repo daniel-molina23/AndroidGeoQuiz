@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         ViewModelProvider(this).get(QuizViewModel::class.java)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
@@ -89,11 +88,10 @@ class MainActivity : AppCompatActivity() {
             //start up a new activity when you click the button!
             val answerIsTrue = quizViewModel.currentQuestionAnswer
             val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
-            startActivity(intent) //with the new value!
+//            startActivity(intent) //with the new value!
 
             startActivityForResult(intent, REQUEST_CODE_CHEAT)
         }
-
         updateQuestion()
     }
 
@@ -182,6 +180,10 @@ class MainActivity : AppCompatActivity() {
             userAnswer == correctAnswer -> R.string.correct_toast
             else -> R.string.incorrect_toast
         }
+
+        //just mark correct to count score
+        if(userAnswer == correctAnswer){ quizViewModel.markCorrect()}
+
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
             .show()
     }
