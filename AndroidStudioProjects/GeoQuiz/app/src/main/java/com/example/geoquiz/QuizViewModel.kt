@@ -58,6 +58,7 @@ class QuizViewModel : ViewModel(){
 
     fun moveToNext(){
         currentIndex = (currentIndex + 1) % questionBank.size
+        isCheater = false //next one we restart
     }
 
     fun moveToPrevious(){
@@ -66,5 +67,6 @@ class QuizViewModel : ViewModel(){
         } else{ // current index = 0
             questionBank.size - 1 // end of the list
         }
+        isCheater = false //different question
     }
 }

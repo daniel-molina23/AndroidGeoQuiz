@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkButtonTFEnablement(){
         //must be used after the currentIndex change
-        if(quizViewModel.currentQuestionAnswered){
+        if(quizViewModel.currentQuestionAnswered || quizViewModel.isCheater){
             //next question WAS answered, DISABLE
             trueButton.isEnabled = false
             falseButton.isEnabled = false

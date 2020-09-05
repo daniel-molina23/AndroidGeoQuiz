@@ -52,7 +52,7 @@ class CheatActivity : AppCompatActivity() {
             showAnswerButton.isEnabled = false //disable
         }
     }
-    
+
     override fun onSaveInstanceState(savedInstanceState: Bundle){
         super.onSaveInstanceState(savedInstanceState)
         Log.i(TAG, "onSaveInstanceState")
