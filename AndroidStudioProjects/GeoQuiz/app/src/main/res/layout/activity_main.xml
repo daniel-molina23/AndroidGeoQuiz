@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="24dp"
         android:gravity= "center"
-        tools:text= "@string/question_australia"/>
+        tools:text= "@string/question_giza_pyramid"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

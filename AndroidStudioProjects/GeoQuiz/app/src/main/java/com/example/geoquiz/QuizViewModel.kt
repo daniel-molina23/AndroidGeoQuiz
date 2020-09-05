@@ -11,12 +11,11 @@ class QuizViewModel : ViewModel(){
 
     //calling the Question constructor to make list of objects
     private val questionBank = listOf(
-        Question(R.string.question_australia, true),
-        Question(R.string.question_oceans, true),
-        Question(R.string.question_mideast, false),
-        Question(R.string.question_africa, false),
-        Question(R.string.question_americas, true),
-        Question(R.string.question_asia, true))
+        Question(R.string.question_giza_pyramid, true),
+        Question(R.string.question_gun_powder, true),
+        Question(R.string.question_tomatoes, true),
+        Question(R.string.question_china, false),
+        Question(R.string.question_socrates, false))
 
     val currentQuestionAnswer : Boolean get() = questionBank[currentIndex].answer
 
